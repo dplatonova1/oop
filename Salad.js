@@ -1,4 +1,5 @@
 import { MenuItem } from "./MenuItem.js";
+import { validateByParameter } from "./validate.js";
 
 export class Salad extends MenuItem {
   constructor(salad, weight) {
@@ -12,14 +13,16 @@ export class Salad extends MenuItem {
   static OLIVIER = "olivier";
 
   _validateSaladType(salad) {
-    if ([Salad.CAESAR, Salad.OLIVIER].indexOf(salad) === -1) {
-      throw new Error("Unknown type of salad");
-    }
+    validateByParameter(
+      [Salad.CAESAR, Salad.OLIVIER],
+      salad,
+      "Unknown type of salad"
+    );
   }
 
   _validateWeight(weight) {
-    if (!weight) {
-      throw new Error("Salad doesn't have property of weight");
+    if (!weight && weight > 0) {
+      throw new Error("Wrong weight of salad");
     }
   }
 

@@ -1,4 +1,5 @@
 import { MenuItem } from "./MenuItem.js";
+import { validateByParameter } from "./validate.js";
 
 export class Drink extends MenuItem {
   constructor(drink) {
@@ -10,9 +11,11 @@ export class Drink extends MenuItem {
   static COFFEE = "coffee";
 
   _validateDrinkType(drink) {
-    if ([Drink.COLA, Drink.COFFEE].indexOf(drink) === -1) {
-      throw new Error("Unknown type of drink");
-    }
+    validateByParameter(
+      [Drink.COLA, Drink.COFFEE],
+      drink,
+      "Unknown type of drink"
+    );
   }
 
   _countDrink(drink) {

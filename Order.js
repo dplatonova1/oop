@@ -1,10 +1,13 @@
+import { MenuItem } from "./MenuItem.js";
+
 export class Order {
   constructor(item) {
     this.order = [item];
   }
 
   addItem(item) {
-    this.order.push(item);
+    if (item instanceof MenuItem) this.order.push(item);
+    else throw new Error("incorrect type of item");
   }
 
   removeItem(item) {
@@ -13,17 +16,17 @@ export class Order {
 
   _getSumOfOrderByParameter(parameter) {
     let standartWeight = 100;
-    let parameterForFunction =
-      parameter.charAt(0).toUpperCase() + parameter.slice(1);
-    let functionByParameter = `get${parameterForFunction}`;
-    let mapped = this.order.map((el) => {
+    let functionGetByParameter = `get${
+      parameter.charAt(0).toUpperCase() + parameter.slice(1)
+    }`;
+    let orderByParameter = this.order.map((el) => {
       if (el.hasOwnProperty("weight")) {
-        return (el.getWeight() / standartWeight) * el[functionByParameter]();
+        return (el.getWeight() / standartWeight) * el[functionGetByParameter]();
       } else {
-        return el[functionByParameter]();
+        return el[functionGetByParameter]();
       }
     });
-    return mapped.reduce((acc, value) => {
+    return orderByParameter.reduce((acc, value) => {
       return acc + value;
     });
   }

@@ -1,4 +1,5 @@
 import { MenuItem } from "./MenuItem.js";
+import { validateByParameter } from "./validate.js";
 
 export class Hamburger extends MenuItem {
   constructor(size, stuffing) {
@@ -18,21 +19,23 @@ export class Hamburger extends MenuItem {
   static STUFFING_POTATO = "potato";
 
   _validateSize(size) {
-    if ([Hamburger.SIZE_SMALL, Hamburger.SIZE_LARGE].indexOf(size) === -1) {
-      throw new Error("Unknown hamburger size");
-    }
+    validateByParameter(
+      [Hamburger.SIZE_SMALL, Hamburger.SIZE_LARGE],
+      size,
+      "Unknown hamburger size"
+    );
   }
 
   _validateStuffing(stuffing) {
-    if (
+    validateByParameter(
       [
         Hamburger.STUFFING_CHEESE,
         Hamburger.STUFFING_SALAD,
         Hamburger.STUFFING_POTATO,
-      ].indexOf(stuffing) === -1
-    ) {
-      throw new Error("Unknown hamburger stuffing");
-    }
+      ],
+      stuffing,
+      "Unknown hamburger stuffing"
+    );
   }
 
   _countSize(size) {

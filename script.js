@@ -16,7 +16,7 @@ const caesar = new Salad(Salad.CAESAR, 150);
 const olivier = new Salad(Salad.OLIVIER, 90);
 const cola = new Drink(Drink.COLA);
 
-// Нужно с чего-то начать - первый салат в заказе
+// Нужно с чего-то начать: первый салат в заказе
 const order = new Order(caesar);
 
 // Добавляем к заказу другие блюда
@@ -30,7 +30,11 @@ order.removeItem(olivier);
 
 // Оплатили заказ, выводим
 order.pay();
-console.log(order, order.calculatePrice(), order.calculateCalories());
+console.log(
+  order,
+  `Total price in tugricks: ${order.calculatePrice()}`,
+  `Total calories: ${order.calculateCalories()}`
+);
 
 // Пытаемся дозаказать кофе, но заказ оплачен, объект заблокирован, изменения невозможны
 // order.addItem(coffee);
